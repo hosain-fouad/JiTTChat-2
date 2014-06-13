@@ -70,10 +70,7 @@ io.sockets.on('connection', function (socket) { // First connection
 		reloadUsers();
 		if (pseudoSet(socket))
 		{
-			var pseudo;
-			socket.get('pseudo', function(err, name) {
-				pseudo = name;
-			});
+			var pseudo = socket.pseudo;
 			var index = pseudoArray.indexOf(pseudo);
 			pseudo.slice(index - 1, 1);
 		}

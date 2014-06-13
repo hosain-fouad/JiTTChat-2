@@ -83,7 +83,12 @@ function addMessage(msg, pseudo, date, self) {
 	     console.log(data.text);
 			if(self) var classDiv = "row message self";
 			else var classDiv = "row message";
-			$("#chatEntries").append('<div class="'+classDiv+'"><p class="infos"><span class="pseudo">'+pseudo+'</span>, <time class="date" title="'+date+'">'+date+'</time></p><p>' + data.text + '</p></div>');
+			var currMiliSecond = new Date().getTime();
+			$("#chatEntries").append('<div class="'+classDiv+'"><p class="infos"><span class="pseudo">'+pseudo+'</span>, <time class="date" title="'+date+'">'+date+'</time></p><p class='+currMiliSecond+'>' + data.text + '</p></div>');
+
+			// $('.'+currMiliSecond).smilify();
+			$('.'+currMiliSecond).emoticonize({});
+
 			time();
 	   }
  	});
