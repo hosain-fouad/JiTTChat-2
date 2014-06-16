@@ -50,6 +50,14 @@ io.sockets.on('connection', function (socket) { // First connection
 			console.log("user "+ transmit['pseudo'] +" said \""+data+"\"");
 		}
 	});
+  socket.on('newUser', function (data) { // Broadcast the message to all
+    if(pseudoSet(socket))
+    {
+      var transmit = {date : new Date().toISOString(), pseudo : returnPseudo(socket), message : data};
+      socket.broadcast.emit('newUser', transmit);
+      console.log("user "+ transmit['pseudo'] +" said \""+data+"\"");
+    }
+  });
 	socket.on('setPseudo', function (data) { // Assign a name to the user
     console.log("you are setting the user here now!");
 		if (pseudoArray.indexOf(data) == -1) // Test if the name is already taken

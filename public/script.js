@@ -34,7 +34,6 @@ $(function() {
 	$("#alertPseudo").hide();
 	$('#modalPseudo').modal('show');
 	$("#pseudoSubmit").click(function() {setPseudo();setLanguage();});
-	$("#chatEntries").slimScroll({height: '600px'});
 	submitButton.click(function() {sentMessage();});
 	setHeight();
 	$('#messageInput').keypress(function (e) {
@@ -54,6 +53,12 @@ socket.on('message', function(data) {
 	console.log(data);
 });
 
+socket.on('newUser', function(data) {
+	logUser(data['message'], data['pseudo'], new Date().toISOString(), false);
+	console.log(data);
+});
+
+
 //Help functions
 function sentMessage() {
 	if (messageContainer.val() != "")
@@ -72,6 +77,32 @@ function sentMessage() {
 	}
 }
 
+function logUser(msg, pseudo, date, self) {
+	console.log(pseudo+" has just sent a message.");
+
+	$.ajax({
+		type: "GET",
+		dataType: "jsonp",
+		url: "http://localhost:8080/translate?message="+msg+"&toLang="+language,
+		success: function(data){
+			console.log(data.text);
+			var currMiliSecond = new Date().getTime();
+			var messageClass = "logUser";
+			var messageBodyTextClass = "messageBodyText";
+
+				$("#chatEntries").append('<marquee behavior="alternate" direction="left" scrollamount="3"> <div class="'+messageClass+'"><p class="infos"><span class="pseudo otherSender">'+pseudo+'</span>, <time class="date" title="'+date+'">'+date+'</time></p><p style="font-size:15px" class='+currMiliSecond+'>' + data.text + '</p></div></marquee>');
+
+
+			var myDiv = document.getElementById("chatEntries");
+			myDiv.scrollTop = myDiv.scrollHeight;
+			//$('.'+currMiliSecond).smilify();
+			$('.'+currMiliSecond).emoticonize({});
+
+			time();
+		}
+	});
+}
+
 function addMessage(msg, pseudo, date, self) {
 	console.log(pseudo+" has just sent a message.");
 
@@ -81,12 +112,21 @@ function addMessage(msg, pseudo, date, self) {
 	   url: "http://localhost:8080/translate?message="+msg+"&toLang="+language,
 	   success: function(data){
 	     console.log(data.text);
-			if(self) var classDiv = "row message self";
-			else var classDiv = "row message";
 			var currMiliSecond = new Date().getTime();
-			$("#chatEntries").append('<div class="'+classDiv+'"><p class="infos"><span class="pseudo">'+pseudo+'</span>, <time class="date" title="'+date+'">'+date+'</time></p><p class='+currMiliSecond+'>' + data.text + '</p></div>');
+			var messageClass = "row bubble ";
+			var messageBodyTextClass = "messageBodyText";
+			if(self){
+				messageClass+="me ";
+				$("#chatEntries").append('<div class="'+messageClass+'"><p class="infos"><span class="pseudo meSender">'+pseudo+'</span>, <time class="date" title="'+date+'">'+date+'</time></p><p style="font-size:15px" class='+currMiliSecond+'>' + data.text + '</p></div>');
+			}
+			else{
+				messageClass+="you ";
+				$("#chatEntries").append('<div class="'+messageClass+'"><p class="infos"><span class="pseudo otherSender">'+pseudo+'</span>, <time class="date" title="'+date+'">'+date+'</time></p><p style="font-size:15px" class='+currMiliSecond+'>' + data.text + '</p></div>');
+			}
 
-			// $('.'+currMiliSecond).smilify();
+			var myDiv = document.getElementById("chatEntries");
+			myDiv.scrollTop = myDiv.scrollHeight;
+			//$('.'+currMiliSecond).smilify();
 			$('.'+currMiliSecond).emoticonize({});
 
 			time();
@@ -111,6 +151,10 @@ function setPseudo() {
 				$('#modalPseudo').modal('hide');
 				$("#alertPseudo").hide();
 				pseudo = $("#pseudoInput").val();
+				socket.emit('newUser', 'User '+pseudo+' has logged in! :)');
+				logUser('User '+pseudo+' has logged in! :)', "JiTT-Chat", new Date().toISOString(), true);
+				messageContainer.val('');
+				submitButton.button('loading');
 			}
 			else
 			{
@@ -129,6 +173,6 @@ function time() {
 	});
 }
 function setHeight() {
-	$(".slimScrollDiv").height('603');
+	$(".slimScrollDiv").height('500');
 	$(".slimScrollDiv").css('overflow', 'visible')
 }

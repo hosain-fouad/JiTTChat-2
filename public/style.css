@@ -25,7 +25,7 @@ a:hover{color:#005580;text-decoration:underline;}
 .row{margin-left:-20px;*zoom:1;}.row:before,.row:after{display:table;content:"";}
 .row:after{clear:both;}
 [class*="span"]{float:left;margin-left:20px;}
-.container,.navbar-fixed-top .container,.navbar-fixed-bottom .container{width:940px;}
+.container,.navbar-fixed-top .container,.navbar-fixed-bottom .container{width:500px;}
 .span12{width:940px;}
 .span11{width:860px;}
 .span10{width:780px;}
@@ -535,7 +535,7 @@ button.btn.btn-mini,input[type="submit"].btn.btn-mini{*padding-top:1px;*padding-
 .navbar-search .search-query:focus,.navbar-search .search-query.focused{padding:5px 10px;color:#333333;text-shadow:0 1px 0 #ffffff;background-color:#ffffff;border:0;-webkit-box-shadow:0 0 3px rgba(0, 0, 0, 0.15);-moz-box-shadow:0 0 3px rgba(0, 0, 0, 0.15);box-shadow:0 0 3px rgba(0, 0, 0, 0.15);outline:0;}
 .navbar-fixed-top,.navbar-fixed-bottom{position:fixed;right:0;left:0;z-index:1030;margin-bottom:0;}
 .navbar-fixed-top .navbar-inner,.navbar-fixed-bottom .navbar-inner{padding-left:0;padding-right:0;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;}
-.navbar-fixed-top .container,.navbar-fixed-bottom .container{width:940px;}
+.navbar-fixed-top .container,.navbar-fixed-bottom .container{width:500px;}
 .navbar-fixed-top{top:0;}
 .navbar-fixed-bottom{bottom:0;}
 .navbar .nav{position:relative;left:0;display:block;float:left;margin:0 10px 0 0;}
@@ -691,14 +691,6 @@ a.thumbnail:hover{border-color:#0088cc;-webkit-box-shadow:0 1px 4px rgba(0, 105,
 #main {
 	padding-top: 70px;
 }
-#chatEntries {
-    border: 1px solid grey;
-    border-radius: 5px;
-    background-color: rgba(0,0,0,.05);
-    margin-bottom: 20px;
-    height: 600px;
-    box-shadow: 0 0 10px rgba(0,0,0,.5);
-}
 .message {
 	overflow: hidden;
 	padding: 0 12px;
@@ -720,11 +712,11 @@ a.thumbnail:hover{border-color:#0088cc;-webkit-box-shadow:0 1px 4px rgba(0, 105,
 	font-size: 10px;
 	color: #5C5C5C;
 }
-.btn-group {	
+.btn-group {
     float: right;
 }
 #messageInput {
-	width: 830px;
+	width: 400px;
 	margin-left: 20px;
 }
 #entries {
@@ -737,4 +729,15 @@ a.thumbnail:hover{border-color:#0088cc;-webkit-box-shadow:0 1px 4px rgba(0, 105,
 	100% {
 		-webkit-transform: rotateX( 0deg );
 	}
+}
+
+#chatEntries {
+		border: 1px solid grey;
+		border-radius: 5px;
+		background-color: rgba(0,0,0,.05);
+		margin-bottom: 20px;
+		height: 400px;
+		width: 500px
+		box-shadow: 0 0 10px rgba(0,0,0,.5);
+		overflow: scroll;
 }

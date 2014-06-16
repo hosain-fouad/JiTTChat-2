@@ -3,6 +3,7 @@ html
 	head
 		title Chat
 		link(rel="stylesheet", href="style.css")
+		link(rel="stylesheet", href="chat.css")
 		link(rel="stylesheet", href="jquery.cssemoticons.css")
 		link(rel="stylesheet", href="smileys.css")
 		script(src='http://code.jquery.com/jquery-1.7.1.min.js')
@@ -17,7 +18,7 @@ html
 			div.navbar.navbar-fixed-top
 				div.navbar-inner
 					div.container
-						a.brand(href="http://go2mycloud.blogspot.com/2013/01/jitt-chat.html") JiTT-Chat#2
+						a.brand(href="http://go2mycloud.blogspot.com/") JiTT-Chat#2
 			div#chatEntries
 			div.row#entries
 				input(type='text')#messageInput
@@ -30,14 +31,6 @@ html
 							a#edit(href="#modalPseudo", data-toggle="modal")
 								i.icon-user
 								| Change name
-						li
-							a#info(href="#modalInfos", data-toggle="modal")
-								i.icon-info-sign
-								| Infos
-			div#nbUsersDiv
-				p There is
-					span#nbUsers
-					|  connected user(s).
 	div.modal.fade#modalPseudo
 		div.modal-header
 			h3 Choose a name
